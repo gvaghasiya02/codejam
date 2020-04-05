@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+/*Gaurav*/
+int sqr[60][60], n, k, x;
+bool rs[60][60], cs[60][60], sd;
+
+void sll(int r, int cl, int m) {
+    if (r == n && cl == n + 1 && m == k && !sd) {
+        sd = true;
+        cout << "Case #" << x << ": " << "POSSIBLE"<<endl;
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 1; j <= n; ++j) {
+                cout << sqr[i][j] << " ";
+            }
+            cout << "\n";
+        }
+        return;
+    } else if (r > n) {
+        return;
+    } else if (cl > n) {
+        sll(r + 1, 1, m);
+    }
+    for (int i = 1; i <= n && !sd; ++i) {
+        if (!rs[r][i] && !cs[cl][i]) {
+            rs[r][i] = cs[cl][i] = true;
+            if (r == cl) {
+                m += i;
+            }
+            sqr[r][cl] = i;
+
+            sll(r, cl + 1, m);
+
+            rs[r][i] = cs[cl][i] = false;
+            if (r == cl) {
+                m -= i;
+            }
+            sqr[r][cl] = 0;
+        }
+    }
+}
+
+int main() {
+    int T;
+    cin >> T;
+    for (x = 1; x <= T; ++x) 
+    {
+        cin >>n>>k;
+        sll(1, 1, 0);
+        if (!sd) 
+        {
+            cout << "Case #" << x << ": " << "IMPOSSIBLE"<<endl;
+        }
+        sd = false;
+    }
+    return 0;
+}
