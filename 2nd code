@@ -1,0 +1,69 @@
+#include <iostream> 
+#include <string> 
+using namespace std;
+int main()
+{
+	int t,l,i,j,k;
+	string s;
+	cin >> t;
+	l=t;
+	while(t--)
+	{
+		cin >> s;
+		//printf("%d\n",strlen(s));
+		//s[strlen(s)]='0';
+		//printf("%d\n",strlen(s));
+		string a;
+		for(i=0;i<s.length();i++)
+		{	
+		int o=0,c=0;
+			for(k=0;k<a.length();k++)
+			{
+				if(a[k]=='(')
+				o++;
+				else if(a[k]==')')
+				c++;
+				
+			}
+			//cout << o << c<<endl;
+		for(j=1;j<=((int)(s[i]-'0')-o+c);j++)
+			{
+				a+='(';
+				
+			}
+			a+=s[i];
+			
+			if(s[i]>=s[i+1] && i!=s.length()-1)
+			{
+			for(j=1;j<=((int)(s[i]-s[i+1]));j++)
+			{
+				
+				a+=')';
+			}
+			}
+			else if(s[i]<s[i+1] && i!=s.length()-1)
+			continue;
+			else
+			{
+			o=0,c=0;
+			for(k=0;k<a.length();k++)
+			{
+				if(a[k]=='(')
+				o++;
+				else if(a[k]==')')
+				c++;
+				
+			}
+				for(j=1;j<=o-c;j++)
+				{
+				
+				a+=')';
+				}
+				
+			}
+			//printf("%d %s\n",i,a);
+		}
+			cout << "Case #"<<(l-t)<<": "<< a << endl;
+	}
+	return 0;
+}
